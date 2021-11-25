@@ -28,3 +28,50 @@ class Usersv2(models.Model):
     class Meta:
         managed = False
         db_table = 'Usersv2'
+
+
+class Student(models.Model):
+   
+    sname = models.CharField(max_length=40, blank=True, null=True)
+    semail = models.CharField(max_length=40, blank=True, null=True)
+    spass = models.CharField(max_length=40, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'student'
+
+
+
+class Alluniv(models.Model):
+    univname = models.CharField(max_length=100, blank=True, null=True)
+    unicity = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'alluniv'
+
+
+
+class GradStudent(models.Model):
+    gname = models.CharField(max_length=100, blank=True, null=True)
+    gpass = models.CharField(max_length=100, blank=True, null=True)
+    gemail = models.CharField(max_length=100, blank=True, null=True)
+    gmajor = models.CharField(max_length=100, blank=True, null=True)
+    guniv = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'grad_student'
+
+
+
+class Question(models.Model):
+    univid = models.CharField(max_length=100, blank=True, null=True)
+    sid = models.CharField(max_length=100, blank=True, null=True)
+    question = models.CharField(max_length=100, blank=True, null=True)
+    answer = models.CharField(max_length=100, blank=True, null=True)
+    gid = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'question'
