@@ -17,12 +17,16 @@ urlpatterns = [
     path('login',views.loginstudent,name='login'),
     path('logingrad',views.logingrad,name='logingrad'),
     path('addgrad',views.addgrad,name='login'),
+    path('checkgrad', views.checkgrad, name='checkgrad'),
 
     path('universitypage',views.universitypage,name="universitypage"),
     path('gotouniversity',views.gotouniversity,name="gotouniversity"),
+    
+    path('graduateloginpage',views.graduateloginpage,name="graduateloginpage"),
     path('ask_question' , views.ask_question , name="ask_question" ),
 
-    path('graduateloginpage' , views.graduateloginpage , name="graduateloginpage" )
+    path('graduateloginpage' , views.graduateloginpage , name="graduateloginpage" ),
+    path('answer_question' , views.answer_question , name="answer_question" )
 
     
 

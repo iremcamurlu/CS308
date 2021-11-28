@@ -28,6 +28,7 @@ def take_comments(unicode):
        
        current.append(q1.answer)
        stu_id = q1.sid
+       current.append(q1.id)
        for sti in all_students:
            if stu_id == sti.id:
                current.append(sti.sname)
@@ -42,9 +43,6 @@ def take_comments(unicode):
         if(u1.id==unicode):
             univname=u1.univname
             univcity=u1.unicity
-
-    #print("Univname is ",univname)
-    #print("Univcity is ",univcity)
 
 
     return ques , ans , student_of_questions, univname, univcity, questionss
@@ -82,25 +80,38 @@ def ask_question(request):
 
     ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
 
-    #print("Database question " , ques)
-    #print("Database student_of_questions" , questionner_id)
-    #print("univname name " , univname)
-    #print("univcity " , univcity)
-
-
-
-
 
     return render(request,'universitypage.html',{"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
     
+def answer_question(request):
+
+
+    unicode=request.GET.get('unicode')
+    page_sid = request.GET.get('Grad_id')
+    ques_id =request.GET.get('ques_id')
+    Answer = request.GET.get('Answer') 
+
+    print("answerr   cevabi" , Answer)
+    print("question id ", ques_id)
+    q = Question.objects.get(id=ques_id)
+    q.answer = Answer  # change field
+    q.gid = page_sid
+    q.save() # this will update only
+
+
+    ques, ans , questionner_id, univname, univcity, questions = take_comments(int(unicode))
+
+
+    return render(request, 'graduateloginpage.html', {"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
+
+
 
 def graduateloginpage(request):
 
 
+
+
     return render(request,'graduateloginpage.html',{})
-
-
-
 
 
 
@@ -146,7 +157,6 @@ def home(request):
 
 
 
-
 def checkuser(request):
 
     email=request.GET.get('logemail')
@@ -180,22 +190,38 @@ def checkgrad(request):
 
     email=request.GET.get('logemail')
     psw=request.GET.get('logpass')
-    #uname=format(uname)
+
+    grad_student= GradStudent.objects.all()
+
     print(email)
     print(psw)
-    grad_student=GradStudent.objects.all()
-     
-     #newuser=Users(username=uname,password=psw)
-     #newuser.save()
+    true_user = False
+    unicode =''
     for g1 in grad_student:
         if(g1.gemail==email and g1.gpass==psw):
             result="Login Succesfull"
-            return render(request,'loginuserhomepage.html',{"uname":g1.gname})
+            true_user = True
+            
         
-             
-    
+    if(true_user == False):
+        return render(request,'unknown.html',{})
 
-    return render(request,'unknown.html',{})
+    grad_id = 0
+
+    for each in grad_student:
+        if(each.gemail == email):
+            print(each.gemail)
+            grad_id = each.id
+            unicode = each.guniv
+
+            break
+
+    unicode = int(unicode)
+
+    ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
+
+                     
+    return render(request,'graduateloginpage.html',{ "grad_id": grad_id,"uname":g1.gname, "questionss":questions,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
 
 
 
