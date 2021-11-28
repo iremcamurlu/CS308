@@ -1,5 +1,6 @@
 <!DOCTYPE html>
- {% load static %}
+{% load static %}
+{% csrf_token %}
 <html lang="en">
 <head>
 <!--
@@ -117,6 +118,7 @@ http://www.tooplate.com/view/2082-pure-mix
 </section>
 
 
+
 <!-- Portfolio section
 ================================================== -->
 <section id="portfolio">
@@ -143,12 +145,19 @@ http://www.tooplate.com/view/2082-pure-mix
                               <div class="iso-box photoshop branding col-md-4 col-sm-6">
                                  <div class="portfolio-thumb">
                                     <img src="{% static 'mainpageimages/portfolio-img1.jpg' %}" class="img-responsive" alt="Portfolio">
+                                       <form action="gotouniversity">
                                        <div class="portfolio-overlay">
+                                       
                                           <div class="portfolio-item">
-                                                <a href="single-project.html"><i class="fa fa-link"></i></a>
-                                                <h2>Project One</h2>
+                                                <input type="hidden" name='unicode' value=1 />
+                                                <input type="hidden" name='sid' value={{sid}} />
+                                                <button type="submit" class="fa fa-link" ></button>
+                                                <!--<a href="{% url 'login' %}"><i class="fa fa-link"></i></a>-->
+                                                <h2>Sabanci University</h2>
                                              </div>
+
                                        </div>
+                                       </form>
                                  </div>
                               </div>
 
@@ -222,6 +231,7 @@ http://www.tooplate.com/view/2082-pure-mix
       </div>
    </div>
 </section>
+
 
 <!-- Footer section
 ================================================== -->

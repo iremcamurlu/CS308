@@ -2,32 +2,107 @@ from django.shortcuts import render
 from .models import GradStudent, Usersv2
 from .models import Student
 from .models import Alluniv
+from .models import Question
+
 
 # Create your views here.
 
+def take_comments(unicode):
+   
+    #print('take comment unicode type',type(unicode))
 
+    all_univs=Alluniv.objects.all()
+    questions = Question.objects.all()
+    all_students = Student.objects.all()
 
+    ques = "str"
+    ans = "ans"
+    student_of_questions = "a"
+    univname="ss"
+    univcity="aa"
+    questionss=[] #questions[0][...] for questions #questions[1][...] for answers #questions[2][...] for sid
 
-def gotouniversity(request):
-     unicode=request.GET.get('unicode')
-     print(unicode)
-     print(type(unicode))
-     unicode=int(unicode)
-     print(type(unicode))   
+    for q1 in questions:
+       current = []
+       current.append(q1.question)
+       
+       current.append(q1.answer)
+       stu_id = q1.sid
+       for sti in all_students:
+           if stu_id == sti.id:
+               current.append(sti.sname)
+       print(current)
 
-     all_univs=Alluniv.objects.all()
+       questionss.append(current)
 
-     for u1 in all_univs:
-        print(type(u1.id))
+    #print(questions)
+
+    for u1 in all_univs:
+        #print(u1.univname)
         if(u1.id==unicode):
             univname=u1.univname
             univcity=u1.unicity
-            print(univname)
-            print(univcity)
+
+    #print("Univname is ",univname)
+    #print("Univcity is ",univcity)
+
+
+    return ques , ans , student_of_questions, univname, univcity, questionss
+
+
+def gotouniversity(request):
+
+     unicode=request.GET.get('unicode')
+     page_sid = request.GET.get('sid')
+     unicode=int(unicode)
+
+
+     ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
 
             
-            return render(request,'universitypage.html',{"univname":univname,"univcity":univcity})
+     return render(request,'universitypage.html',{"questionss":questions ,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
      
+    
+
+def ask_question(request):
+
+
+    comment=request.GET.get('comment')
+    unicode=request.GET.get('unicode')
+    page_sid = request.GET.get("page_sid")
+
+    
+    
+    print('comment ' , comment)
+    print("Unicode ",unicode," sid ",page_sid," Comment ",comment)
+
+    new_comment =Question(univid = str(unicode) , sid = page_sid, question = comment)
+    new_comment.save()
+    unicode = int(unicode)
+
+    ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
+
+    #print("Database question " , ques)
+    #print("Database student_of_questions" , questionner_id)
+    #print("univname name " , univname)
+    #print("univcity " , univcity)
+
+
+
+
+
+    return render(request,'universitypage.html',{"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
+    
+
+def graduateloginpage(request):
+
+
+    return render(request,'graduateloginpage.html',{})
+
+
+
+
+
 
 
 
@@ -40,6 +115,7 @@ def loginstudent(request):
 
 
 def logingrad(request):
+
     return render(request,'logingraduate.html')
 
 
@@ -48,6 +124,7 @@ def homepage(request):
 
 
 def universitypage(request):
+
     return render(request,'universitypage.html',{})
 
 
@@ -86,12 +163,12 @@ def checkuser(request):
     for s1 in all_students:
         if(s1.semail==email and s1.spass==psw):
             result="Login Succesfull"
-            return render(request,'loginuserhomepage.html',{"uname":s1.sname})
+            return render(request,'loginuserhomepage.html',{"uname":s1.sname , "sid":s1.id})
 
     for g1 in all_grad:
         if(g1.gemail==email and g1.gpass==psw):
             result="Login Succesfull"
-            return render(request,'loginuserhomepage.html',{"uname":g1.gname})
+            return render(request,'loginuserhomepage.html',{"uname":g1.gname , "gid":g1.id})
 
              
     

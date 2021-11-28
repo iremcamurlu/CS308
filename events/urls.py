@@ -20,6 +20,9 @@ urlpatterns = [
 
     path('universitypage',views.universitypage,name="universitypage"),
     path('gotouniversity',views.gotouniversity,name="gotouniversity"),
+    path('ask_question' , views.ask_question , name="ask_question" ),
+
+    path('graduateloginpage' , views.graduateloginpage , name="graduateloginpage" )
 
     
 
