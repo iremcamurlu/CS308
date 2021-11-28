@@ -73,13 +73,13 @@ span.psw {
 {% load static %}
 
 
-<h2>Login Form</h2>
+<h2>Register Form</h2>
 
-<form action="checkuser" >
+<form action="adduser" >
 
   {% csrf_token %}
   <div class="imgcontainer">
-    <img src= "{% static 'img/avatar3.png' %}" alt="1" class='avatar' >
+    <img src= "{% static 'avatar3.png' %}" alt="berkay1" class='avatar' >
   </div>
 
   <div class="container">
@@ -88,8 +88,11 @@ span.psw {
 
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="Email" required>
         
-    <button type="submit">Login</button>
+    <button type="submit">Register</button>
 
   </div>
 
