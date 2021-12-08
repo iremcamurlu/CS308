@@ -21,7 +21,7 @@
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Log In</h4>
-                                            <form action='checkuser'>
+                                            <form action='checkgrad'>
 											<div class="form-group">
 												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
 												<i class="input-icon uil uil-at"></i>
@@ -30,6 +30,7 @@
 												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
+											<input type ="hidden" name='customer' value="2" />
 											<button type="submit" class="btn mt-4" >submit</button>
                             				<!--<p class="mb-0 mt-4 text-center"><a href="{% url 'register' %}" class="link">Sign in</a></p> -->
                                             </form>    

@@ -66,9 +66,9 @@ class GradStudent(models.Model):
 
 
 class Question(models.Model):
-    univid = models.CharField(max_length=100, blank=True, null=True)
-    sid = models.CharField(max_length=100, blank=True, null=True)
-    question = models.CharField(max_length=100, blank=True, null=True)
+    univid = models.CharField(max_length=100)
+    sid = models.CharField(max_length=100)
+    question = models.CharField(max_length=256)
     answer = models.CharField(max_length=100, blank=True, null=True)
     gid = models.CharField(max_length=100, blank=True, null=True)
 

@@ -136,43 +136,32 @@ http://www.tooplate.com/view/2082-pure-mix
                         				
 
                         <h5>{{atts.0}}</h5>
-                        <p>{{atts.1}}</p>
-                        
+                        <h5>{{atts.1}}</h5>
                       </div>
                     </div>
 
-                    {% endfor %}
-                    <div class="media">
-                        <div class="media-object pull-left">
-                            <img src="{% static 'mainpageimages/comment2.jpg' %}" class="img-responsive" alt="blog">
-                       </div>
-                      <div class="media-body">
-                        <h4 class="media-heading">Jenne leon</h4>
-                        <h5>4 June 2016, Saturday</h5>
-                        <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur.</p>
-                      </div>
-                    </div>
-               </div>
-               {% if customer == "2" %}
-               <div class="blog-comment-form">
-                  <h3>Please create your question</h3>
+                    {% if atts.1 == None %}
+                    <div class="blog-comment-form">
+                    <h3>Answer this question</h3>
                      
-                    <form action="ask_question" >
-                     {% csrf_token %}
-                      <textarea class="form-control" placeholder="Comment" rows="4"  name="comment"></textarea>
+                    <form action="answer_question" >
+                    {% csrf_token %}
+                    <textarea class="form-control" placeholder="Comment" rows="2"  name="Answer"></textarea>
 
-                      <div class="contact-submit">
-                      <input type="hidden" name='unicode' value={{unicode}} />
-                      <input type="hidden" name='page_sid' value={{page_sid}} />
-                      <input type ="hidden" name='customer' value="2" />
-                      <input name="submit" type="submit" class="form-control" id="submit" value="Submit a comment">
-                      </div>
+                    <div class="contact-submit">
+                    <input type="hidden" name='unicode' value={{unicode}} />
+                    <input type="hidden" name='ques_id' value={{atts.2}} />
+                    <input type="hidden" name='Grad_id' value={{grad_id}} />
+                    <input name="submit" type="submit" class="form-control" id="submit" value="Submit Answer">
+                    </div>
                       
                    </form>
-               </div>
+                   </div>
 
-               {% endif %}
+                    {% endif %}
 
+
+                    {% endfor %}
          
 		    
         </div>
