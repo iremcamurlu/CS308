@@ -20,7 +20,7 @@ http://www.tooplate.com/view/2082-pure-mix
 
 	<!-- Site title
    ================================================== -->
-	<title>Pure Mix - Single Post</title>
+	<title>UNIGO Mix - Single Post</title>
 
 	<!-- Bootstrap CSS
    ================================================== -->
@@ -66,7 +66,7 @@ http://www.tooplate.com/view/2082-pure-mix
             <div class="row">
 
               <div class="brand">
-                <a href="index.html">Pure Mix</a>
+                <a href="{% url 'homepage' %}">UNIGO</a>
               </div>
 
               <div class="navicon">
@@ -80,7 +80,7 @@ http://www.tooplate.com/view/2082-pure-mix
                     <i class="icon ion-close-round close-iframe"></i>
                     <div class="intro-inner">
                      	<ul id="nav-menu">
-                         <li><a href="index.html">Home</a></li>
+                         <li><a href="{% url 'homepage' %}">Home</a></li>
                        	 <li><a href="about.html">About</a></li>
                        	 <li><a href="blog.html">Blog</a></li>
                        	 <li><a href="contact.html">Contact</a></li>
@@ -132,13 +132,11 @@ http://www.tooplate.com/view/2082-pure-mix
                             <img src= "{% static 'mainpageimages/comment1.jpg' %}" class="img-responsive" alt="blog">
                        </div>
                       <div class="media-body">
-                        <h4 class="media-heading">{{stu_name}}</h4>
+                        <h4 class="media-heading">{{atts.3}}</h4>
                         				
 
                         <h5>{{atts.0}}</h5>
                         <h5>{{atts.1}}</h5>
-                        <h5>{{unicode}}</h5>
-                        <h5>{{atts.2}}</h5>
                       </div>
                     </div>
 
@@ -154,7 +152,7 @@ http://www.tooplate.com/view/2082-pure-mix
                     <input type="hidden" name='unicode' value={{unicode}} />
                     <input type="hidden" name='ques_id' value={{atts.2}} />
                     <input type="hidden" name='Grad_id' value={{grad_id}} />
-                    <input name="submit" type="submit" class="form-control" id="submit" value="Submit a comment">
+                    <input name="submit" type="submit" class="form-control" id="submit" value="Submit Answer">
                     </div>
                       
                    </form>
