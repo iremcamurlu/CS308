@@ -35,6 +35,7 @@ class Student(models.Model):
     sname = models.CharField(max_length=40, blank=True, null=True)
     semail = models.CharField(max_length=40, blank=True, null=True)
     spass = models.CharField(max_length=40, blank=True, null=True)
+    sstatus = models.CharField(max_length=40)
 
     class Meta:
         managed = False
