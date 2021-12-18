@@ -106,80 +106,14 @@ http://www.tooplate.com/view/2082-pure-mix
 
 			<div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
           <div class="header-thumb">
-              <h1 class="wow fadeIn" data-wow-delay="0.6s"> {{univname}} </h1>
-              <h3 class="wow fadeInUp" data-wow-delay="0.9s">{{univcity}}</h3>
+              <h1 class="wow fadeIn" data-wow-delay="0.6s"> ADMIN PAGE </h1>
+              <h3 class="wow fadeInUp" data-wow-delay="0.9s">You can delete inappropriate questions</h3>
           </div>
 			</div>
 
 		</div>
 	</div>		
 </section>
-
-
-  <style>
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
-  </style>
-
-
-  
-  <h2>HTML Table</h2>
-  
-  <table>
-    <tr>
-      <th>Company</th>
-      <th>Contact</th>
-      <th>Country</th>
-    </tr>
-    <tr>
-      <td>Alfreds Futterkiste</td>
-      <td>Maria Anders</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <td>Centro comercial Moctezuma</td>
-      <td>Francisco Chang</td>
-      <td>Mexico</td>
-    </tr>
-    <tr>
-      <td>Ernst Handel</td>
-      <td>Roland Mendel</td>
-      <td>Austria</td>
-    </tr>
-    <tr>
-      <td>Island Trading</td>
-      <td>Helen Bennett</td>
-      <td>UK</td>
-    </tr>
-    <tr>
-      <td>Laughing Bacchus Winecellars</td>
-      <td>Yoshi Tannamuri</td>
-      <td>Canada</td>
-    </tr>
-    <tr>
-      <td>Magazzini Alimentari Riuniti</td>
-      <td>Giovanni Rovelli</td>
-      <td>Italy</td>
-    </tr>
-  </table>
-
-
-
-
-
 
 
 <!-- Single Post section
@@ -190,9 +124,36 @@ http://www.tooplate.com/view/2082-pure-mix
          <div class="wow fadeInUp col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10" data-wow-delay="2.3s">   
                 <!-- Comment
                 ================================================== -->
-               <div class="blog-comment">
-                 <h3>Question Answer Part</h3>
-                     {% for atts in questionss %}
+                <div class="blog-comment-form">
+                    <h3>Add university</h3>
+                       
+                      <form action="add_university" >
+                       {% csrf_token %}
+                        <textarea class="form-control" placeholder="Name of the University" rows="1"  name="uniname"></textarea>
+                        <textarea class="form-control" placeholder="City of the University" rows="1"  name="unicity"></textarea>
+                        <div class="contact-submit">
+
+                        <input name="submit" type="submit" class="form-control" id="submit" value="Add University">
+                        </div>
+                        
+                     </form>
+                 </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+                <div class="blog-comment">
+                 <h3>Questions</h3>
+                     {% for atts in questions %}
                     <div class="media">
                         <div class="media-object pull-left">
                             <img src= "{% static 'mainpageimages/comment1.jpg' %}" class="img-responsive" alt="blog">
@@ -201,43 +162,33 @@ http://www.tooplate.com/view/2082-pure-mix
                         <h4 class="media-heading">{{atts.3}}</h4>
                         				
 
-                        <h5>{{atts.0}}</h5>
-                        <p>{{atts.1}}</p>
+                        <h5>{{atts.1}}</h5>
+                        <p>{{atts.2}}</p>
+                        <p>{{atts.0}}</p>
                         
                       </div>
                     </div>
+                    <div class="blog-comment-form">                   
+                          <form action="delete_question" >
+                           {% csrf_token %}
+                        
+      
+                            <div class="contact-submit">
+                            <input type="hidden" name='questionid' value={{atts.0}} />
+                            <input name="submit" type="submit" class="form-control" id="submit" value="Delete this question">
+                            
+                            </div>
+                            
+                         </form>
+                     </div>
 
                     {% endfor %}
-                    <div class="media">
-                        <div class="media-object pull-left">
-                            <img src="{% static 'mainpageimages/comment2.jpg' %}" class="img-responsive" alt="blog">
-                       </div>
-                      <div class="media-body">
-                        <h4 class="media-heading">Jenne leon</h4>
-                        <h5>4 June 2016, Saturday</h5>
-                        <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur.</p>
-                      </div>
-                    </div>
-               </div>
-               {% if customer == "2" %}
-               <div class="blog-comment-form">
-                  <h3>Please create your question</h3>
-                     
-                    <form action="ask_question" >
-                     {% csrf_token %}
-                      <textarea class="form-control" placeholder="Comment" rows="4"  name="comment"></textarea>
 
-                      <div class="contact-submit">
-                      <input type="hidden" name='unicode' value={{unicode}} />
-                      <input type="hidden" name='page_sid' value={{page_sid}} />
-                      <input type ="hidden" name='customer' value="2" />
-                      <input name="submit" type="submit" class="form-control" id="submit" value="Submit a comment">
-                      </div>
-                      
-                   </form>
                </div>
+               
 
-               {% endif %}
+
+            
 
          
 		    

@@ -1,8 +1,10 @@
+from django.http import request
 from django.shortcuts import render
 from .models import GradStudent, Usersv2
 from .models import Student
 from .models import Alluniv
 from .models import Question
+from .models import Unimajors
 
 
 # Create your views here.
@@ -49,9 +51,100 @@ def take_comments(unicode):
         if(u1.id==unicode):
             univname=u1.univname
             univcity=u1.unicity
+            uninfo=u1.uninfo
+            uniface=u1.uniface
+            uninsta=u1.uninsta
+            unitwitter=u1.unitwitter
+            unisite=u1.unisite
+            
+
+            
 
 
-    return ques , ans , student_of_questions, univname, univcity, questionss
+
+    return ques , ans , student_of_questions, univname, univcity, questionss,uninfo,uniface,uninsta,unitwitter,unisite
+
+
+def take_comment_studentid(id):
+
+   
+    #print('take comment unicode type',type(unicode))
+    
+    questions = Question.objects.all()
+
+
+
+    ques = "str"
+    ans = "ans"
+    student_of_questions = "a"
+    univname="ss"
+    univcity="aa"
+    questionss=[] #questions[0][...] for questions #questions[1][...] for answers #questions[2][...] for sid
+            
+    for q1 in questions:
+       print("TYPE OF UNİCODE İS ",type(id))
+       print("TYPE OF univid İS ",type(q1.sid))
+       print("TYPE OF id İS ",id)
+       print("TYPE OF q1.sid İS ",q1.sid)
+
+       
+       
+       if id==int(q1.sid):
+        
+        current = []
+        current.append(q1.question)
+        current.append(q1.answer)
+        current.append(q1.id)
+
+        
+
+        questionss.append(current)
+
+    print(questionss)
+
+
+    return questionss
+
+
+
+
+def takeunimajors(unicode):
+   
+   
+    #print('take comment unicode type',type(unicode))
+    
+
+    all_majors=Unimajors.objects.all()
+
+
+    majors=[] #questions[0][...] for questions #questions[1][...] for answers #questions[2][...] for sid
+            
+
+    print("type of unicode is ",type(unicode))
+
+    print(" unicode is ",unicode)
+
+    
+
+    
+    for m1 in all_majors:
+        if m1.univid==str(unicode):
+            current = []
+            current.append(m1.id)
+            current.append(m1.majorname)
+            current.append(m1.max)
+            current.append(m1.min)
+            majors.append(current)
+
+
+
+    #majors [0][...] for id #questions[1][...] for majorname #questions[2][...] for max #questions[3][...] for min
+    return majors
+
+
+
+
+
 
 
 def gotouniversity(request):
@@ -67,12 +160,39 @@ def gotouniversity(request):
      print("CUSTOMER TYPE IS ",type(customer))
 
 
-     ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
+     ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(unicode)
+
+   
+     majors=takeunimajors(unicode)
+
 
             
-     return render(request,'universitypage.html',{"questionss":questions ,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer})
-     
+     return render(request,'universitypage.html',{"questionss":questions ,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer,"majors":majors ,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
     
+
+
+
+def admin_get_question():
+
+    questions = Question.objects.all()
+    ques = "str"
+    ques_id="a"
+    allquestions=[] 
+    print("Outside for")
+    for q1 in questions:
+       
+     current = []
+     current.append(q1.id)
+     current.append(q1.question)
+     current.append(q1.answer)
+
+     #id question answer
+     
+     allquestions.append(current)    
+
+
+    return allquestions
+
 
 def ask_question(request):
 
@@ -97,10 +217,13 @@ def ask_question(request):
     new_comment.save()
     unicode = int(unicode)
 
-    ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
+    ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(unicode)
+
+    majors=takeunimajors(unicode)
 
 
-    return render(request,'universitypage.html',{"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer})
+
+    return render(request,'universitypage.html',{"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer,"majors":majors,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
     
 def answer_question(request):
 
@@ -118,10 +241,10 @@ def answer_question(request):
     q.save() # this will update only
 
 
-    ques, ans , questionner_id, univname, univcity, questions = take_comments(int(unicode))
+    ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(int(unicode))
 
 
-    return render(request, 'graduateloginpage.html', {"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
+    return render(request, 'graduateloginpage.html', {"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
 
 
 
@@ -129,10 +252,12 @@ def graduateloginpage(request):
 
 
 
-
     return render(request,'graduateloginpage.html',{})
 
 
+
+def adminpage(request):
+    return render(request,'adminpage.html',{})
 
 
 
@@ -164,16 +289,38 @@ def mainpage(request):
     return render(request,'mainpage.html')
 
 def deneme(request):
-    user=Usersv2.objects.all()
-    contex={
 
-        'user':user
-
-    }
 
     
-    return render(request,'deneme.html',{"user":user})
+    return render(request,'deneme.html',{})
 
+
+
+def delete_question(request):
+    
+    qid=request.GET.get('questionid')
+    questions=admin_get_question()
+    print("ID of the question is ",qid )
+    print("type of the question is ",type(qid) )
+    instance = Question.objects.get(id=int(qid))
+    instance.delete()
+    questions=admin_get_question()
+
+    return render(request,'adminpage.html',{"questions":questions})
+
+    
+def add_university(request):
+    questions=admin_get_question()
+    uniname=request.GET.get('uniname')
+    unicity=request.GET.get('unicity')
+
+    print("NAME İS ",uniname)
+    print("CİTY İS ",unicity)
+
+    newuniv=Alluniv(univname=uniname,unicity=unicity)
+    newuniv.save()
+
+    return render(request,'adminpage.html',{"questions":questions})
 
 
 
@@ -213,8 +360,12 @@ def checkuser(request):
 
     for s1 in all_students:
         if(s1.semail==email and s1.spass==psw):
-            result="Login Succesfull"
-            return render(request,'loginuserhomepage.html',{"uname":s1.sname , "sid":s1.id,"univs":univs})
+            if(s1.sstatus=="1"):
+                questions=admin_get_question()
+                return render(request,'adminpage.html',{"questions":questions})
+            else:
+                result="Login Succesfull"
+                return render(request,'loginuserhomepage.html',{"uname":s1.sname , "sid":s1.id,"univs":univs})
              
     
 
@@ -253,7 +404,7 @@ def checkgrad(request):
 
     unicode = int(unicode)
 
-    ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
+    ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(unicode)
 
                      
     return render(request,'graduateloginpage.html',{ "grad_id": grad_id,"uname":g1.gname, "questionss":questions,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
@@ -262,6 +413,17 @@ def checkgrad(request):
 
 def register(request):
     return render(request,'register.html',{})
+
+
+def userpage(request,id):
+
+    
+    stu = Student.objects.get(id=id)
+    name=stu.sname
+    email=stu.semail
+    questions=take_comment_studentid(id)
+
+    return render(request,'userpage.html',{"name":name,"email":email,"questions":questions})
 
 
 
