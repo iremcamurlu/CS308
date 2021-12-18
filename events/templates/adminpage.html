@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+ {% load static %}
+
+<html lang="en">
+<head>
+
+
+<!--
+
+Template 2082 Pure Mix
+
+http://www.tooplate.com/view/2082-pure-mix
+
+-->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- Site title
+   ================================================== -->
+	<title>UNIGO Mix - Single Post</title>
+
+	<!-- Bootstrap CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/bootstrap.min.css' %}">
+
+	<!-- Animate CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/animate.min.css' %}">
+
+	<!-- Font Icons CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'mainpagecss/ionicons.min.css' %}">
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/style.css' %}">
+
+	<!-- Google web font 
+   ================================================== -->	
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
+	
+</head>
+<body>
+
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+
+	<div class="sk-spinner sk-spinner-pulse"></div>
+
+</div>
+
+
+<!-- Navigation section
+================================================== -->
+<div class="nav-container">
+   <nav class="nav-inner transparent">
+
+      <div class="navbar">
+         <div class="container">
+            <div class="row">
+
+              <div class="brand">
+                <a href="{% url 'homepage' %}">UNIGO</a>
+              </div>
+
+              <div class="navicon">
+                <div class="menu-container">
+
+                  <div class="circle dark inline">
+                    <i class="icon ion-navicon"></i>
+                  </div>
+
+                  <div class="list-menu">
+                    <i class="icon ion-close-round close-iframe"></i>
+                    <div class="intro-inner">
+                     	<ul id="nav-menu">
+                         <li><a href="{% url 'homepage' %}">Home</a></li>
+                       	 <li><a href="about.html">About</a></li>
+                       	 <li><a href="blog.html">Blog</a></li>
+                       	 <li><a href="contact.html">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+         </div>
+      </div>
+
+   </nav>
+</div>
+
+<!-- Header section
+================================================== -->
+<section id="header" class="header-five">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+          <div class="header-thumb">
+              <h1 class="wow fadeIn" data-wow-delay="0.6s"> ADMIN PAGE </h1>
+              <h3 class="wow fadeInUp" data-wow-delay="0.9s">You can delete inappropriate questions</h3>
+          </div>
+			</div>
+
+		</div>
+	</div>		
+</section>
+
+
+<!-- Single Post section
+================================================== -->
+<section id="single-post">
+   <div class="container">
+      <div class="row">
+         <div class="wow fadeInUp col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10" data-wow-delay="2.3s">   
+                <!-- Comment
+                ================================================== -->
+                <div class="blog-comment-form">
+                    <h3>Add university</h3>
+                       
+                      <form action="add_university" >
+                       {% csrf_token %}
+                        <textarea class="form-control" placeholder="Name of the University" rows="1"  name="uniname"></textarea>
+                        <textarea class="form-control" placeholder="City of the University" rows="1"  name="unicity"></textarea>
+                        <div class="contact-submit">
+
+                        <input name="submit" type="submit" class="form-control" id="submit" value="Add University">
+                        </div>
+                        
+                     </form>
+                 </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+                <div class="blog-comment">
+                 <h3>Questions</h3>
+                     {% for atts in questions %}
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src= "{% static 'mainpageimages/comment1.jpg' %}" class="img-responsive" alt="blog">
+                       </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">{{atts.3}}</h4>
+                        				
+
+                        <h5>{{atts.1}}</h5>
+                        <p>{{atts.2}}</p>
+                        <p>{{atts.0}}</p>
+                        
+                      </div>
+                    </div>
+                    <div class="blog-comment-form">                   
+                          <form action="delete_question" >
+                           {% csrf_token %}
+                        
+      
+                            <div class="contact-submit">
+                            <input type="hidden" name='questionid' value={{atts.0}} />
+                            <input name="submit" type="submit" class="form-control" id="submit" value="Delete this question">
+                            
+                            </div>
+                            
+                         </form>
+                     </div>
+
+                    {% endfor %}
+
+               </div>
+               
+
+
+            
+
+         
+		    
+        </div>
+      </div>
+   </div>
+</section>
+
+<!-- Footer section
+================================================== -->
+<footer>
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-12 col-sm-12">
+				<p class="wow fadeInUp"  data-wow-delay="0.3s">Copyright © 2016 Your Company Name - Designed by Tooplate</p>
+				<ul class="social-icon wow fadeInUp"  data-wow-delay="0.6s">
+					<li><a href="#" class="fa fa-facebook"></a></li>
+					<li><a href="#" class="fa fa-twitter"></a></li>
+					<li><a href="#" class="fa fa-dribbble"></a></li>
+					<li><a href="#" class="fa fa-behance"></a></li>
+					<li><a href="#" class="fa fa-google-plus"></a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+</footer>
+
+<!-- Javascript 
+================================================== -->
+<script src="{% static 'mainpagejs/jquery.js' %}"></script> 
+<script src="{% static 'mainpagejs/bootstrap.min.js' %}"></script> 
+<script src="{% static 'mainpagejs/wow.min.js' %}"></script> 
+<script src="{% static 'mainpagejs/custom.js' %}"
+></script> 
+</body>
+</html>
