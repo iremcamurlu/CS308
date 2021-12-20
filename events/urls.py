@@ -30,7 +30,11 @@ urlpatterns = [
     path('answer_question' , views.answer_question , name="answer_question" ),
     path('adminpage',views.adminpage,name='adminpage'),
     path('add_university',views.add_university,name='add_university'),
-     path('userpage/<int:id>',views.userpage,name='userpage'),
+    path('userpage/<int:id>',views.userpage,name='userpage'),
+    path('likecomment',views.likecomment,name='likecomment'),
+    path('rankingenter',views.rankingenter,name='rankingenter'),
+    path('rankingenterresult',views.rankingenterresult,name='rankingenterresult'),
+    path('sortby',views.sortby,name='sortby'),
 
     
 
