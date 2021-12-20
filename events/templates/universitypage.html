@@ -42,7 +42,10 @@ http://www.tooplate.com/view/2082-pure-mix
 	<!-- Google web font 
    ================================================== -->	
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
-	
+
+  	<!-- Dropdown css
+   ================================================== -->	
+   
 </head>
 <body>
 
@@ -117,6 +120,10 @@ http://www.tooplate.com/view/2082-pure-mix
 </section>
 
 
+
+
+
+
 <!-- table section
 ================================================== -->
 
@@ -163,6 +170,12 @@ http://www.tooplate.com/view/2082-pure-mix
 
 
 
+
+
+
+
+
+
 <!-- Single Post section
 ================================================== -->
 <section id="single-post">
@@ -173,32 +186,54 @@ http://www.tooplate.com/view/2082-pure-mix
                 ================================================== -->
                <div class="blog-comment">
                  <h3>Question Answer Part</h3>
+                  <!-- Dropdown
+                  ================================================== -->
+
+                  <form action="sortby">
+                    <label for="cars">Choose an option:</label>
+                    <select id="orders" name="orders">
+                      <option value="likeas">Like Ascending</option>
+                      <option value="likedes">Like Descending</option>
+                      <option value="dayas">Day Ascending</option>
+                      <option value="daydes">Day Descending</option>
+                    </select>
+                    <input type="hidden" name='unicode' value={{unicode}} />
+                    <input type="hidden" name='customer' value="2" />
+                    <input type="hidden" name='page_sid' value={{page_sid}} />
+                    <input type="submit" value="Order">
+                  </form>
+
                      {% for atts in questionss %}
                     <div class="media">
                         <div class="media-object pull-left">
                             <img src= "{% static 'mainpageimages/comment1.jpg' %}" class="img-responsive" alt="blog">
                        </div>
-                      <div class="media-body">
+                      <div class="media-body" >
                         <h4 class="media-heading">{{atts.3}}</h4>
                         				
-
+                        <h5>{{atts.4}}</h5>
                         <h5>{{atts.0}}</h5>
                         <p>{{atts.1}}</p>
+                        {% if customer == "2" %}
+                        <form action="likecomment" >
+                        <div class="like-content">
+                          <button class="btn-secondary like-review">
+                          <i class="fa fa-heart" aria-hidden="true"></i> Like {{atts.5}}
+                          </button>
+                        </div>
+                        <input type="hidden" name='unicode' value={{unicode}} />
+                        <input type="hidden" name='customer' value="2" />
+                        <input type="hidden" name='page_sid' value={{page_sid}} />
+                        <input type="hidden" name='qid' value={{atts.2}} />
+                        </form>
+                        {% endif %}
                         
                       </div>
                     </div>
 
                     {% endfor %}
-                    <div class="media">
-                        <div class="media-object pull-left">
-                            <img src="{% static 'mainpageimages/comment2.jpg' %}" class="img-responsive" alt="blog">
-                       </div>
-                      <div class="media-body">
-                        <h4 class="media-heading">Jenne leon</h4>
-                        <h5>4 June 2016, Saturday</h5>
-                        <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur.</p>
-                      </div>
-                    </div>
+   
+
                </div>
                {% if customer == "2" %}
                <div class="blog-comment-form">
