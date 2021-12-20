@@ -141,6 +141,8 @@ $(document).ready(function() {
 });
 
 
+
+
 $(document).ready(function(){
             
     "use strict";
@@ -166,4 +168,15 @@ $(document).ready(function(){
   new WOW({ mobile: false }).init();
 
   });
+
+
+
+
+   /* like
+  -------------------------------*/
+  
+
+
+
+
 

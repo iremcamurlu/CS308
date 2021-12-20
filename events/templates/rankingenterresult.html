@@ -1,0 +1,48 @@
+
+ {% load static %}
+ <link rel="stylesheet" href="{% static 'css/rankingenter.css' %}">
+ 
+ <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #FFE933;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #3370FF;
+    }
+    tr:nth-child(odd) {
+        background-color: #3370FF;
+      }
+    </style>
+  
+  
+    
+    <h2>Here are the results</h2>
+    
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>University Name</th>
+        <th>Max Ranking</th>
+        <th>Min Ranking</th>
+      </tr>
+ 
+      {% for mjr in majors %}
+      <tr>
+        <td>{{mjr.2}}</td>
+        <td>{{mjr.1}}</td>
+        <td>{{mjr.3}}</td>
+        <td>{{mjr.4}}</td>
+      </tr>
+      {% endfor %}
+ 
+ 
+    </table>    

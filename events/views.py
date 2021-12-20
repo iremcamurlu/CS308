@@ -1,20 +1,20 @@
 from django.http import request
 from django.shortcuts import render
+from datetime import date
 from .models import GradStudent, Usersv2
 from .models import Student
 from .models import Alluniv
 from .models import Question
+from .models import Unimajors
 
 
 # Create your views here.
 
-def take_comments(unicode):
+def take_comments(unicode,order):
    
-    #print('take comment unicode type',type(unicode))
-    
 
-    all_univs=Alluniv.objects.all()
-    questions = Question.objects.all()
+ 
+
     all_students = Student.objects.all()
 
     ques = "str"
@@ -29,7 +29,6 @@ def take_comments(unicode):
        print("TYPE OF univid İS ",type(q1.univid))
        univid=int(q1.univid)
        if univid==unicode:
-
         current = []
         current.append(q1.question)
        
@@ -39,20 +38,116 @@ def take_comments(unicode):
         for sti in all_students:
              if stu_id == str(sti.id):
                 current.append(sti.sname)
-        print(current)
+ 
 
+
+        current.append(q1.day)
+        current.append(q1.like)
         questionss.append(current)
 
-    #print(questions)
+    print(questionss)
 
     for u1 in all_univs:
         #print(u1.univname)
         if(u1.id==unicode):
             univname=u1.univname
             univcity=u1.unicity
+            uninfo=u1.uninfo
+            uniface=u1.uniface
+            uninsta=u1.uninsta
+            unitwitter=u1.unitwitter
+            unisite=u1.unisite
+            
+
+    
+  
+    
 
 
-    return ques , ans , student_of_questions, univname, univcity, questionss
+
+    return ques , ans , student_of_questions, univname, univcity, questionss,uninfo,uniface,uninsta,unitwitter,unisite
+
+
+def take_comment_studentid(id):
+
+   
+    #print('take comment unicode type',type(unicode))
+    
+    questions = Question.objects.all()
+
+
+
+    ques = "str"
+    ans = "ans"
+    student_of_questions = "a"
+    univname="ss"
+    univcity="aa"
+    questionss=[] #questions[0][...] for questions #questions[1][...] for answers #questions[2][...] for sid
+            
+    for q1 in questions:
+       print("TYPE OF UNİCODE İS ",type(id))
+       print("TYPE OF univid İS ",type(q1.sid))
+       print("TYPE OF id İS ",id)
+       print("TYPE OF q1.sid İS ",q1.sid)
+
+       
+       
+       if id==int(q1.sid):
+        
+        current = []
+        current.append(q1.question)
+        current.append(q1.answer)
+        current.append(q1.id)
+
+        
+
+        questionss.append(current)
+
+    print(questionss)
+
+
+    return questionss
+
+
+
+
+def takeunimajors(unicode):
+   
+   
+    #print('take comment unicode type',type(unicode))
+    
+
+    all_majors=Unimajors.objects.all()
+
+
+    majors=[] #questions[0][...] for questions #questions[1][...] for answers #questions[2][...] for sid
+            
+
+    print("type of unicode is ",type(unicode))
+
+    print(" unicode is ",unicode)
+
+    
+
+    
+    for m1 in all_majors:
+        if m1.univid==str(unicode):
+            current = []
+            current.append(m1.id)
+            current.append(m1.majorname)
+            current.append(m1.max)
+            current.append(m1.min)
+            majors.append(current)
+
+
+
+    #majors [0][...] for id #questions[1][...] for majorname #questions[2][...] for max #questions[3][...] for min
+    return majors
+
+
+
+
+
 
 
 def gotouniversity(request):
@@ -66,12 +161,13 @@ def gotouniversity(request):
      print("UNICODE IS ",unicode)
      print("CUSTOMER IS ",customer)
      print("CUSTOMER TYPE IS ",type(customer))
+     ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(unicode,0)
 
+     majors=takeunimajors(unicode)
 
-     ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
 
             
-     return render(request,'universitypage.html',{"questionss":questions ,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer})
+     return render(request,'universitypage.html',{"questionss":questions ,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer,"majors":majors ,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
     
 
 
@@ -112,19 +208,30 @@ def ask_question(request):
     #print(s1.sname)
 
 
+    today = date.today()
+    print("Today's date:", today)
+    
+    day = today.strftime("%D")
+    print("today:", day)
+    print("type of date is ",type(day))
+
+
     
     
     print('comment ' , comment)
     print("Unicode ",unicode," sid ",page_sid," Comment ",comment)
 
-    new_comment =Question(univid = str(unicode) , sid = page_sid, question = comment)
+    new_comment =Question(univid = str(unicode) , sid = page_sid, question = comment,day=day,like=0)
     new_comment.save()
     unicode = int(unicode)
 
-    ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
+    ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(unicode,0)
+
+    majors=takeunimajors(unicode)
 
 
-    return render(request,'universitypage.html',{"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer})
+
+    return render(request,'universitypage.html',{"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer,"majors":majors,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
     
 def answer_question(request):
 
@@ -142,10 +249,10 @@ def answer_question(request):
     q.save() # this will update only
 
 
-    ques, ans , questionner_id, univname, univcity, questions = take_comments(int(unicode))
+    ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(int(unicode),0)
 
 
-    return render(request, 'graduateloginpage.html', {"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
+    return render(request, 'graduateloginpage.html', {"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
 
 
 
@@ -190,15 +297,10 @@ def mainpage(request):
     return render(request,'mainpage.html')
 
 def deneme(request):
-    user=Usersv2.objects.all()
-    contex={
 
-        'user':user
-
-    }
 
     
-    return render(request,'deneme.html',{"user":user})
+    return render(request,'deneme.html',{})
 
 
 
@@ -310,7 +412,7 @@ def checkgrad(request):
 
     unicode = int(unicode)
 
-    ques, ans , questionner_id, univname, univcity, questions = take_comments(unicode)
+    ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(unicode,0)
 
                      
     return render(request,'graduateloginpage.html',{ "grad_id": grad_id,"uname":g1.gname, "questionss":questions,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id})
@@ -321,12 +423,15 @@ def register(request):
     return render(request,'register.html',{})
 
 
-def register(request):
-    return render(request,'userpage.html',{})
+def userpage(request,id):
 
+    
+    stu = Student.objects.get(id=id)
+    name=stu.sname
+    email=stu.semail
+    questions=take_comment_studentid(id)
 
-
-
+    return render(request,'userpage.html',{"name":name,"email":email,"questions":questions})
 
 
 
@@ -363,4 +468,106 @@ def addgrad(request):
 
 
 
+def likecomment(request):
+   
+    qid=request.GET.get('qid')
+    unicode=request.GET.get('unicode')
+    page_sid = request.GET.get("page_sid")
+    customer = request.GET.get('customer')
+    print("ALLAH İÇİN ÇALIŞ ARTIK",unicode)
+    
+    majors=takeunimajors(unicode)
 
+    print("QİD OF This comment is ",qid)
+    print("TYPE OF This comment is ",type(qid))
+
+ 
+
+
+    instance = Question.objects.get(id=int(qid))
+    
+    instance.like=instance.like+1
+    instance.save()
+    ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(int(unicode),0)
+
+    return render(request,'universitypage.html',{"questionss":questions,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer,"majors":majors,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
+    
+
+
+
+def rankingenter(request):
+   
+    return render(request,'rankingenter.html')
+
+
+
+def rankingenterresult(request):
+    ranking=request.GET.get('ranking')
+    all_majors=Unimajors.objects.all()
+    majors=[]
+    print("Ranking is ",ranking)
+    print("Type is ",type(ranking))
+
+
+
+    for m1 in all_majors:
+        
+        if int(ranking)<int(m1.min) :
+
+            u1 = Alluniv.objects.get(id=m1.univid)
+             # change field
+       
+            current = []
+
+            current.append(m1.id)
+            current.append(u1.univname)
+            current.append(m1.majorname)
+            current.append(m1.max)
+            current.append(m1.min)
+            majors.append(current)
+
+
+    print(majors)
+    
+
+
+    return render(request,'rankingenterresult.html',{"majors":majors})
+
+
+
+
+def sortby(request):
+    #unicode=request.GET.get('unicode')
+     dropdown = request.GET['orders'] 
+     print("DROPDOWN İS",dropdown)
+
+     unicode=request.GET.get('unicode')
+     page_sid = request.GET.get('page_sid')
+     customer = request.GET.get('customer')
+
+     #unicode=int(unicode)u
+
+     print("UNICODE IS ",unicode)
+     print("CUSTOMER IS ",customer)
+     print("CUSTOMER TYPE IS ",type(customer))
+     if dropdown=="likeas":
+         ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(int(unicode),1)
+     elif dropdown=="likedes":
+        ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(int(unicode),2)
+     elif dropdown=="dayas":
+        ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(int(unicode),3)
+     elif dropdown=="daydes":
+        ques, ans , questionner_id, univname, univcity, questions,uninfo,uniface,uninsta,unitwitter,unisite = take_comments(int(unicode),4)
+     
+     
+     majors=takeunimajors(unicode)
+
+
+
+     return render(request,'universitypage.html',{"questionss":questions ,"page_sid":page_sid ,"unicode":unicode,"univname":univname,"univcity":univcity,"question":ques, "answer":ans, "stu_name":questionner_id,"customer":customer,"majors":majors ,"uninfo":uninfo,"uniface":uniface,"uninsta":uninsta,"unitwitter":unitwitter,"unisite":unisite})
+    
+
+
+
+
+    

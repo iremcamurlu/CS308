@@ -1,104 +1,278 @@
 <!DOCTYPE html>
-<html>
+ {% load static %}
+
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
 
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
 
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
+<!--
 
-button:hover {
-  opacity: 0.8;
-}
+Template 2082 Pure Mix
 
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
+http://www.tooplate.com/view/2082-pure-mix
 
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
+-->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
 
-img.avatar {
-  width: 30%;
-  border-radius: 50%;
-  height: 40%;
-  
+	<!-- Site title
+   ================================================== -->
+	<title>UNIGO Mix - Single Post</title>
 
-.container {
-  padding: 16px;
-}
+	<!-- Bootstrap CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/bootstrap.min.css' %}">
 
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
+	<!-- Animate CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/animate.min.css' %}">
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
-}
-</style>
+	<!-- Font Icons CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'mainpagecss/ionicons.min.css' %}">
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="{% static 'mainpagecss/style.css' %}">
+
+	<!-- Google web font 
+   ================================================== -->	
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
+	
 </head>
 <body>
 
-<!--
-{% load static %}
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+
+	<div class="sk-spinner sk-spinner-pulse"></div>
+
+</div>
 
 
-<h2>Login Form</h2>
+<!-- Navigation section
+================================================== -->
+<div class="nav-container">
+   <nav class="nav-inner transparent">
 
-<form action="checkuser" >
+      <div class="navbar">
+         <div class="container">
+            <div class="row">
 
-  {% csrf_token %}
-  <div class="imgcontainer">
-    <img src= "{% static 'img/avatar3.png' %}" alt="1" class='avatar' >
-  </div>
+              <div class="brand">
+                <a href="{% url 'homepage' %}">UNIGO</a>
+              </div>
 
-  <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+              <div class="navicon">
+                <div class="menu-container">
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-        
-    <button type="submit">Login</button>
+                  <div class="circle dark inline">
+                    <i class="icon ion-navicon"></i>
+                  </div>
 
-  </div>
+                  <div class="list-menu">
+                    <i class="icon ion-close-round close-iframe"></i>
+                    <div class="intro-inner">
+                     	<ul id="nav-menu">
+                         <li><a href="{% url 'homepage' %}">Home</a></li>
+                       	 <li><a href="about.html">About</a></li>
+                       	 <li><a href="blog.html">Blog</a></li>
+                       	 <li><a href="contact.html">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+         </div>
+      </div>
+
+   </nav>
+</div>
+
+<!-- Header section
+================================================== -->
+<section id="header" class="header-five">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+          <div class="header-thumb">
+              <h1 class="wow fadeIn" data-wow-delay="0.6s"> {{univname}} </h1>
+              <h3 class="wow fadeInUp" data-wow-delay="0.9s">{{univcity}}</h3>
+          </div>
+			</div>
+
+		</div>
+	</div>		
+</section>
 
 
-</form>
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
 
+
+  
+  <h2>HTML Table</h2>
+  
+  <table>
+    <tr>
+      <th>Company</th>
+      <th>Contact</th>
+      <th>Country</th>
+    </tr>
+    <tr>
+      <td>Alfreds Futterkiste</td>
+      <td>Maria Anders</td>
+      <td>Germany</td>
+    </tr>
+    <tr>
+      <td>Centro comercial Moctezuma</td>
+      <td>Francisco Chang</td>
+      <td>Mexico</td>
+    </tr>
+    <tr>
+      <td>Ernst Handel</td>
+      <td>Roland Mendel</td>
+      <td>Austria</td>
+    </tr>
+    <tr>
+      <td>Island Trading</td>
+      <td>Helen Bennett</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <td>Laughing Bacchus Winecellars</td>
+      <td>Yoshi Tannamuri</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <td>Magazzini Alimentari Riuniti</td>
+      <td>Giovanni Rovelli</td>
+      <td>Italy</td>
+    </tr>
+  </table>
+
+
+
+
+
+
+
+<!-- Single Post section
+================================================== -->
+<section id="single-post">
+   <div class="container">
+      <div class="row">
+         <div class="wow fadeInUp col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10" data-wow-delay="2.3s">   
+                <!-- Comment
+                ================================================== -->
+               <div class="blog-comment">
+                 <h3>Question Answer Part</h3>
+                     {% for atts in questionss %}
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src= "{% static 'mainpageimages/comment1.jpg' %}" class="img-responsive" alt="blog">
+                       </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">{{atts.3}}</h4>
+                        				
+
+                        <h5>{{atts.0}}</h5>
+                        <p>{{atts.1}}</p>
+                        
+                      </div>
+                    </div>
+
+                    {% endfor %}
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="{% static 'mainpageimages/comment2.jpg' %}" class="img-responsive" alt="blog">
+                       </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">Jenne leon</h4>
+                        <h5>4 June 2016, Saturday</h5>
+                        <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur.</p>
+                      </div>
+                    </div>
+               </div>
+               {% if customer == "2" %}
+               <div class="blog-comment-form">
+                  <h3>Please create your question</h3>
+                     
+                    <form action="ask_question" >
+                     {% csrf_token %}
+                      <textarea class="form-control" placeholder="Comment" rows="4"  name="comment"></textarea>
+
+                      <div class="contact-submit">
+                      <input type="hidden" name='unicode' value={{unicode}} />
+                      <input type="hidden" name='page_sid' value={{page_sid}} />
+                      <input type ="hidden" name='customer' value="2" />
+                      <input name="submit" type="submit" class="form-control" id="submit" value="Submit a comment">
+                      </div>
+                      
+                   </form>
+               </div>
+
+               {% endif %}
+
+         
+		    
+        </div>
+      </div>
+   </div>
+</section>
+
+<!-- Footer section
+================================================== -->
+<footer>
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-12 col-sm-12">
+				<p class="wow fadeInUp"  data-wow-delay="0.3s">Copyright © 2016 Your Company Name - Designed by Tooplate</p>
+				<ul class="social-icon wow fadeInUp"  data-wow-delay="0.6s">
+					<li><a href="#" class="fa fa-facebook"></a></li>
+					<li><a href="#" class="fa fa-twitter"></a></li>
+					<li><a href="#" class="fa fa-dribbble"></a></li>
+					<li><a href="#" class="fa fa-behance"></a></li>
+					<li><a href="#" class="fa fa-google-plus"></a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+</footer>
+
+<!-- Javascript 
+================================================== -->
+<script src="{% static 'mainpagejs/jquery.js' %}"></script> 
+<script src="{% static 'mainpagejs/bootstrap.min.js' %}"></script> 
+<script src="{% static 'mainpagejs/wow.min.js' %}"></script> 
+<script src="{% static 'mainpagejs/custom.js' %}"
+></script> 
 </body>
 </html>
--->
-
-<p>This is my include file</p>
-khjgvcf
